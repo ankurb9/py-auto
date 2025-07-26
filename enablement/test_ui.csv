@@ -1,4 +1,4 @@
-module,tests,regression,smoke
+modules,tests,regression,smoke
 test_login.py,test_login_happy_path,true,
 test_login.py,test_locked_user_message,true,true
 test_cart_badge.py,test_add_item_to_cart,true,true

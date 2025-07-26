@@ -1,9 +1,7 @@
-import pandas as pd
 import glob
-import pytest
+import pandas as pd
 from utils.context import Context
-from playwright.sync_api import Playwright
-
+import os
 
 def pytest_addoption(parser):
     """
@@ -33,7 +31,8 @@ def pytest_collection_modifyitems(config, items):
         app_list = [a.strip() for a in apps.split(",")]
         test_df = pd.concat([pd.read_csv(f"enablement/{a}.csv") for a in app_list])
     else:
-        path = "enablement/*.csv"
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        path = f"{script_dir}/enablement/*.csv"
         path_list = glob.glob(path)
         if path_list:
             test_df = pd.concat([pd.read_csv(p) for p in path_list])
@@ -42,12 +41,17 @@ def pytest_collection_modifyitems(config, items):
         if marker not in test_df.columns:
             raise Exception("Marker not found in csv files provided under enablement")
 
-        tests = test_df[test_df[marker] == "true"]["tests"].unique().tolist()
+        exec_df = test_df[test_df[marker] == "true"]
+        exec_df["combined"] = exec_df['modules'] + '::' + exec_df['tests']
 
         filtered_item = []
         for item in items:
-            item = item.split('/')[-1]
-            if item in tests:
+
+            module_name = str(item.module.__name__).split(".")[-1]
+            test_name = item.name
+            full_name = f"{module_name}::{test_name}"
+
+            if full_name in exec_df["combined"].values:
                 filtered_item.append(item)
         items[:] = filtered_item
 

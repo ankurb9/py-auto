@@ -11,6 +11,7 @@ class LoginPage:
         self.action = Action(page)
 
     def navigate(self):
+        log.info("Navigating to web page.")
         self.action.navigate()
 
     def enter_username(self, user_name: str):

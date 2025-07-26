@@ -1,6 +1,6 @@
 module,tests,regression,smoke
-test_module1.py,test_login_happy_path,true,
-test_module1.py,test_locked_user_message,true,true
+test_login.py,test_login_happy_path,true,
+test_login.py,test_locked_user_message,true,true
 test_cart_badge.py,test_add_item_to_cart,true,true
 test_cart_badge.py,test_add_and_remove_items,true,
 test_cart_badge.py,test_add_multiple_items_to_cart,true,

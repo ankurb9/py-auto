@@ -10,10 +10,10 @@ class HomePage:
     def click(self, item_name):
         self.action.click(locator=f"xpath=//div[text()='{item_name}']/ancestor::div[@class='inventory_item_description']//button")
 
-    def get_cart_badge(self):
+    def get_cart_badge_count(self):
         return int(self.action.get_text(locator="xpath=//a/span[@data-test='shopping-cart-badge']"))
 
-    def is_visible_badge(self):
+    def is_badge_count_visible(self):
         return self.action.is_visible(locator="xpath=//a/span[@data-test='shopping-cart-badge']")
 
 

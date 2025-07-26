@@ -2,4 +2,4 @@ modules,tests,regression,smoke
 test_user_manipulate.py,test_create_user,true,
 test_user_manipulate.py,test_update_user,true,true
 test_user_manipulate.py,test_delete_user,true,true
-test_mock_responses.py,test_app2_module1_test2,true,
+test_mock_responses.py,test_mock_api,true,true

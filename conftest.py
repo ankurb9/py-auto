@@ -2,6 +2,7 @@ import glob
 import pandas as pd
 from utils.context import Context
 import os
+from pytest import Config, Item
 
 def pytest_addoption(parser):
     """
@@ -22,7 +23,7 @@ def pytest_configure(config):
     Context(env=env, log_level=log_level)
 
 
-def pytest_collection_modifyitems(config, items):
+def pytest_collection_modifyitems(session, config: Config, items):
 
     marker = config.getoption("-m", "regression")
     apps = config.getoption("-k")
@@ -41,20 +42,19 @@ def pytest_collection_modifyitems(config, items):
         if marker not in test_df.columns:
             raise Exception("Marker not found in csv files provided under enablement")
 
-        exec_df = test_df[test_df[marker] == "true"]
+        test_df = test_df.astype(str)
+        exec_df = test_df[test_df[marker].str.lower() == "true"]
+        exec_df['modules'] = exec_df['modules'].str.replace(".py", "")
         exec_df["combined"] = exec_df['modules'] + '::' + exec_df['tests']
 
-        filtered_item = []
+        filtered_items = []
+        discarded_items = []
+
         for item in items:
 
             module_name = str(item.module.__name__).split(".")[-1]
-            test_name = item.name
-            full_name = f"{module_name}::{test_name}"
+            test_name = str(item.name).split("[")[0]
 
-            if full_name in exec_df["combined"].values:
-                filtered_item.append(item)
-        items[:] = filtered_item
-
-    else:
-        return
+            if module_name in exec_df["modules"].values and test_name in exec_df["tests"].values:
+                item.add_marker(marker)
 

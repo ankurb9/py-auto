@@ -1,0 +1,5 @@
+tests,regression,smoke
+test_module1.py::test_app2_module1_test1,true,
+test_module1.py::test_app2_module1_test2,true,true
+test_module2.py::test_app2_module1_test1,true,
+test_module2.py::test_app2_module1_test2,true,true

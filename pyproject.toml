@@ -1,0 +1,7 @@
+[tool.pytest.ini_options]
+addopts = ["--screenshot=only-on-failure",
+            "--headed"]
+screenshot_dir = "screenshots"
+playwright_browser = "firefox"
+playwright_show_trace = true
+playwright_headless = false

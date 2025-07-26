@@ -20,6 +20,20 @@ def get_user(playwright: Playwright, userid: int):
                    method="GET",
                    status_code_expected=200)
 
+def get_delete_user(playwright: Playwright, userid: int):
+    log.info("Fetching the deleted user details.")
+    return request(playwright=playwright,
+                   url=f"/api/users/{userid}",
+                   method="GET",
+                   status_code_expected=404)
+
+def delete_user(playwright: Playwright, userid: int):
+    log.info("Deleting the user details.")
+    return request(playwright=playwright,
+                   url=f"/api/users/{userid}",
+                   method="DELETE",
+                   status_code_expected=204)
+
 def update_user(playwright: Playwright, userid: int, payload: Union[str | dict]):
 
     log.info("Updating the user.")

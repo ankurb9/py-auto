@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 from utils.context import Context
 import os
 from pathlib import Path
-from playwright.sync_api import Page, APIResponse
+from playwright.sync_api import APIResponse, Playwright
 from typing import Literal, Optional, Union
 ctx = Context()
 
@@ -14,7 +14,7 @@ def __get_json_body(body):
 
     if isinstance(body, str):
         if os.path.isfile(body):
-            config_file = project_root / "config" / body
+            config_file = project_root / "payloads" / body
             with config_file.open() as f:
                 return json.load(f)
         else:
@@ -26,20 +26,23 @@ def __get_json_body(body):
     return None
 
 
-def request(page: Page, url: str ,
+def request(playwright: Playwright, url: str,
             method: Literal["GET", "POST", "PUT", "DELETE"],
-            body: Optional[str | dict] = None,
+            body: Optional[Union[str, dict]] = None,
             status_code_expected: int = 200) -> dict:
 
     final_url = urljoin(ctx.api_host, url=url)
     data = __get_json_body(body)
-    headers = {"Content-Type": "application/json"}
+    headers = {"Content-Type": "application/json",
+               "x-api-key": "reqres-free-v1"}
+
+    req = playwright.request.new_context(base_url=ctx.api_host, extra_http_headers=headers)
 
     method_func = {
-        "GET": page.request.get,
-        "POST": page.request.post,
-        "PUT": page.request.put,
-        "DELETE": page.request.delete
+        "GET": req.get,
+        "POST": req.post,
+        "PUT": req.put,
+        "DELETE": req.delete
     }[method]
 
     request_args = {
@@ -52,7 +55,7 @@ def request(page: Page, url: str ,
 
     res: APIResponse = method_func(**request_args)
 
-    assert res.status == status_code_expected, "Invalid status code received"
+    assert res.status == status_code_expected, f"Invalid status code received: {res.status_text}."
 
     return res.json()
 

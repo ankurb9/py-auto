@@ -2,7 +2,8 @@ import glob
 import pandas as pd
 from utils.context import Context
 import os
-from pytest import Config, Item
+from pytest import Config
+from pathlib import Path
 
 def pytest_addoption(parser):
     """
@@ -46,9 +47,6 @@ def pytest_collection_modifyitems(session, config: Config, items):
         exec_df = test_df[test_df[marker].str.lower() == "true"]
         exec_df['modules'] = exec_df['modules'].str.replace(".py", "")
         exec_df["combined"] = exec_df['modules'] + '::' + exec_df['tests']
-
-        filtered_items = []
-        discarded_items = []
 
         for item in items:
 

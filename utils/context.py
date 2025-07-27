@@ -1,22 +1,24 @@
 from dataclasses import dataclass, field
-import yaml
 from pathlib import Path
+import yaml
 from utils.singleton import singleton
+
 
 @singleton
 @dataclass
 class Context:
     env: str = field(default="")
     log_level: str = field(default="INFO")
-    url: str = field(default="")
-    username: str = field(default="")
-    password: str = field(default="")
-    browser: str = field(default="chromium")
-    api_host: str = field(default="")
+    url: str = field(default="", init=False, repr=False)
+    username: str = field(default="", init=False, repr=False)
+    password: str = field(default="", init=False, repr=False)
+    api_host: str = field(default="", init=False, repr=False)
+    project_root: str = field(default="", init=False, repr=False)
 
     def __post_init__(self):
         if not self.env:
             raise ValueError("Env cannot be blank")
+
         self._set_context()
 
     def _set_context(self):
@@ -31,5 +33,5 @@ class Context:
             self.username = conf["username"]
             self.password = conf["password"]
             self.api_host=conf["host"]
-
+            self.project_root = self.project_root = str(Path(__file__).resolve().parents[2])
 

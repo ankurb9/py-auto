@@ -1,22 +1,23 @@
 import json
+from typing import Literal, Optional, Union, Any
+from urllib.parse import urljoin
 
 from jsonpath_ng import parse
-from urllib.parse import urljoin
-from utils.context import Context
-import os
-from pathlib import Path
 from playwright.sync_api import APIResponse, Playwright
-from typing import Literal, Optional, Union, Any
+
+from utils.context import Context
 
 ctx = Context()
 
 def __get_json_body(body):
-    project_root = Path(__file__).resolve().parents[1]
 
     if isinstance(body, str):
-        config_file = project_root / "payloads" / body
-        with config_file.open() as f:
-            return json.load(f)
+
+        if body.endswith(".json"):
+            with open(f"{ctx.project_root}/payloads/{body}") as f:
+                return json.load(f)
+        else:
+            return json.loads(body)
 
     if isinstance(body, (dict, list)):
         return body

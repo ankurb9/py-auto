@@ -1,16 +1,17 @@
-
+import threading
 
 def singleton(cls):
     """
-    A decorator that converts a class into a Singleton.
+    A thread-safe decorator that converts a class into a Singleton.
     Only one instance of the class will ever exist.
     """
-    instances = {}  # Stores singleton instances
+    instances = {}
+    lock = threading.Lock()
 
     def get_instance(*args, **kwargs):
-        # If the class hasn't been instantiated yet, create it
-        if cls not in instances:
-            instances[cls] = cls(*args, **kwargs)
-        return instances[cls]  # Return the existing instance
+        with lock:
+            if cls not in instances:
+                instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
 
     return get_instance

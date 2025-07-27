@@ -1,6 +1,6 @@
 modules,tests,regression,smoke,sanity
-test_login.py,test_login_happy_path,true,
+test_login.py,test_login_happy_path,true,,
 test_login.py,test_locked_user_message,true,true,true
-test_cart_badge.py,test_add_item_to_cart,true,true
-test_cart_badge.py,test_add_and_remove_items,true,
+test_cart_badge.py,test_add_item_to_cart,true,,
+test_cart_badge.py,test_add_and_remove_items,true,true,
 test_cart_badge.py,test_add_multiple_items_to_cart,true,true,true

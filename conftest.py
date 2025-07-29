@@ -25,13 +25,13 @@ def pytest_configure(config):
 
 
 def pytest_collection_modifyitems(session, config: Config, items):
-
+    ctx = Context()
     marker = config.getoption("-m", "regression")
     apps = config.getoption("-k")
     test_df = pd.DataFrame()
     if apps:
         app_list = [a.strip() for a in apps.split(",")]
-        test_df = pd.concat([pd.read_csv(f"enablement/{a}.csv") for a in app_list])
+        test_df = pd.concat([pd.read_csv(f"{ctx.project_root}/enablement/{a}.csv") for a in app_list])
     else:
         script_dir = os.path.dirname(os.path.abspath(__file__))
         path = f"{script_dir}/enablement/*.csv"

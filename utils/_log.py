@@ -21,7 +21,7 @@ def get_logger() -> logging.Logger:
             message = super().format(record)
             return f"{color}{message}{Style.RESET_ALL}"
 
-    logger = logging.getLogger(name)
+    logger = logging.getLogger()
     logger.setLevel(getattr(logging, ctx.log_level))
     logger.propagate = False
     logger.handlers.clear()

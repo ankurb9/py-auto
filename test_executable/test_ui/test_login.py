@@ -1,11 +1,9 @@
 
 from playwright.sync_api import Page
-from utils.context import Context
-from utils.log import get_logger
+from utils import ctx
+from utils import log
 from pages.login_page import LoginPage
 
-ctx = Context()
-log = get_logger()
 
 def test_login_happy_path(page: Page):
     login = LoginPage(page=page)

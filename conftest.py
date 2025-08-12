@@ -1,9 +1,8 @@
 import glob
 import pandas as pd
-from utils.context import Context
+from utils import ctx
 import os
 from pytest import Config
-from pathlib import Path
 
 def pytest_addoption(parser):
     """
@@ -21,11 +20,11 @@ def pytest_addoption(parser):
 def pytest_configure(config):
     env = config.getoption("--env")
     log_level = config.getoption("--loglevel")
-    Context(env=env, log_level=log_level)
+    ctx.set_context(env=env, log_level=log_level)
 
 
 def pytest_collection_modifyitems(session, config: Config, items):
-    ctx = Context()
+
     marker = config.getoption("-m", "regression")
     apps = config.getoption("-k")
     test_df = pd.DataFrame()

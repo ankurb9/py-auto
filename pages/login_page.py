@@ -1,9 +1,7 @@
 from utils.ui_actions import Action
-from utils.context import Context
-from utils.log import get_logger
+from utils import ctx
+from utils import log
 
-conf = Context()
-log = get_logger()
 
 class LoginPage:
     def __init__(self, page):
@@ -29,7 +27,7 @@ class LoginPage:
     def verify_login(self):
         assert self.action.is_visible(locator="xpath=//a[@data-test='shopping-cart-link']"), "Login Failed"
 
-    def simply_click_login(self, username=conf.username, password = conf.password):
+    def simply_click_login(self, username=ctx.username, password = ctx.password):
         self.navigate()
         self.enter_username(username)
         self.enter_password(password)

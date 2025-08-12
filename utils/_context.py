@@ -15,12 +15,9 @@ class Context:
     api_host: str = field(default="", init=False, repr=False)
     project_root: str = field(default_factory=lambda: str(Path(__file__).resolve().parents[1]), init=False, repr=False)
 
-    def __post_init__(self):
-        if not self.env:
-            raise ValueError("Env cannot be blank")
-        self._set_context()
-
-    def _set_context(self):
+    def set_context(self, env, log_level):
+        self.env = env
+        self.log_level = log_level
         config_file = f"{self.project_root}/config/{self.env}.yaml"
         with open(config_file) as f:
             conf = yaml.safe_load(f.read())
@@ -30,3 +27,4 @@ class Context:
             self.password = conf["password"]
             self.api_host=conf["host"]
 
+ctx = Context()

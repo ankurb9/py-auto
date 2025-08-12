@@ -1,8 +1,7 @@
 import logging
 from colorama import Fore, Style, init
-from utils.context import Context
+from utils._context import ctx
 
-config = Context()
 init(autoreset=True)
 
 
@@ -23,7 +22,7 @@ def get_logger(name: str = "CustomLogger") -> logging.Logger:
             return f"{color}{message}{Style.RESET_ALL}"
 
     logger = logging.getLogger(name)
-    logger.setLevel(getattr(logging, config.log_level))
+    logger.setLevel(getattr(logging, ctx.log_level))
     logger.propagate = False
     logger.handlers.clear()
 

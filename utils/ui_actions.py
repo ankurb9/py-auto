@@ -1,16 +1,14 @@
 from playwright.sync_api import Page
-from utils.log import get_logger
-from utils.context import Context
+from utils import log
+from utils import ctx
 
-log = get_logger()
-conf = Context()
 
 class Action:
     def __init__(self, page: Page):
         self.page = page
 
     def navigate(self):
-        self.page.goto(conf.url)
+        self.page.goto(ctx.url)
 
     def click(self, locator: str):
         self.page.click(locator)

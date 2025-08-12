@@ -1,13 +1,9 @@
 import json
 from typing import Literal, Optional, Union, Any
 from urllib.parse import urljoin
-
 from jsonpath_ng import parse
 from playwright.sync_api import APIResponse, Playwright
-
-from utils.context import Context
-
-ctx = Context()
+from utils import ctx
 
 def __get_json_body(body):
 

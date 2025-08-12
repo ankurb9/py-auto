@@ -1,10 +1,12 @@
 from utils.ui_actions import Action
-from utils.log import get_logger
+from pages.login_page import LoginPage
 
-log = get_logger()
 
-class HomePage:
+class HomePage(LoginPage):
     def __init__(self, page):
+
+        super().__init__(page)
+        super().successful_login()
         self.action = Action(page)
 
     def click(self, item_name):

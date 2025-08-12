@@ -1,9 +1,8 @@
 from playwright.sync_api import Playwright
-from utils.log import get_logger
+from utils import log
 from utils.api_utils import request
 from typing import Union
 
-log = get_logger()
 def create_user(playwright: Playwright, payload: Union[str | dict] ):
 
     log.info("Creating user.")

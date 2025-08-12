@@ -5,7 +5,7 @@ from utils._context import ctx
 init(autoreset=True)
 
 
-def get_logger(name: str = "CustomLogger") -> logging.Logger:
+def get_logger() -> logging.Logger:
     level_styles = {
         "DEBUG": (Fore.CYAN, "🐞"),
         "INFO": (Fore.GREEN, "ℹ️"),

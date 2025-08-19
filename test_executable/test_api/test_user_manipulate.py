@@ -1,11 +1,8 @@
 from playwright.sync_api import Playwright
-from utils._context import Context
-from utils.api_utils import parse_json
-from utils._log import get_logger
+from utils import log
 from utils.api_actions import create_user, get_user, update_user, delete_user, get_delete_user
+from utils.api_utils import parse_json
 
-ctx = Context()
-log = get_logger()
 
 def test_create_user(playwright: Playwright):
 

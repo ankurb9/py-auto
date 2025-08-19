@@ -1,7 +1,5 @@
 
 from playwright.sync_api import Page
-from utils import ctx
-from utils import log
 from pages.login_page import LoginPage
 
 

@@ -25,7 +25,7 @@ def test_create_user():
 
 def test_patch_user_details():
 
-    payload = (UserBuilder(exclude_none=True)
+    payload = (UserBuilder()
                .set_name("Ankur")
                .set_phone("0111111111")
                .build()

@@ -50,7 +50,7 @@ def pytest_collection_modifyitems(session, config: Config, items):
         for item in items:
 
             module_name = str(item.module.__name__).split(".")[-1]
-            test_name = str(item._name).split("[")[0]
+            test_name = str(item.name).split("[")[0]
 
             if module_name in exec_df["modules"].values and test_name in exec_df["tests"].values:
                 item.add_marker(marker)

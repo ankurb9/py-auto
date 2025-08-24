@@ -8,14 +8,14 @@ def test_create_user():
 
 
     payload = (UserBuilder()
-               .set_name("Ankur")
-               .set_email("test9@test.com")
-               .set_phone("0123456789")
-               .set_username("test9")
-               .set_city("Pune")
-               .set_state("Maharashtra")
-               .set_street("Bhumkar Chowk")
-               .set_zipcode("411057")
+               .set_name()
+               .set_email("test@gmail.com")
+               .set_phone()
+               .set_username("testingFaker")
+               .set_city()
+               .set_state()
+               .set_street()
+               .set_zipcode()
                .build()
                )
 
@@ -26,7 +26,7 @@ def test_create_user():
 def test_patch_user_details():
 
     payload = (UserBuilder()
-               .set_name("Ankur")
+               .set_name()
                .set_phone("0111111111")
                .build()
     )

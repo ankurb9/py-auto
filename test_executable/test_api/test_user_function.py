@@ -1,9 +1,7 @@
-import json
+from jsonschema import validate
 
-from utils import log
 from reqres_builder import UserBuilder
 from utils.apiClient import APIClient, Service
-from jsonschema import validate, ValidationError
 
 client = APIClient(Service.users)
 

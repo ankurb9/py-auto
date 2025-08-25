@@ -51,7 +51,5 @@ class UserBuilder:
         return self
 
     def build(self):
-        # cleanup: if address exists but is empty, remove it
-        if "address" in self._obj and not self._obj["address"]:
-            self._obj.pop("address")
+
         return self._obj

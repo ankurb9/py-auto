@@ -7,8 +7,8 @@ class Action:
     def __init__(self, page: Page):
         self.page = page
 
-    def navigate(self):
-        self.page.goto(ctx.url)
+    def navigate(self, url=None):
+        self.page.goto(url if url else ctx.url )
 
     def click(self, locator: str):
         self.page.click(locator)

@@ -4,3 +4,4 @@ test_login.py,test_locked_user_message,true,true,true
 test_cart_badge.py,test_add_item_to_cart,true,,
 test_cart_badge.py,test_add_and_remove_items,true,true,
 test_cart_badge.py,test_add_multiple_items_to_cart,true,true,true
+test_reqres.py,test_user_response_modify,true,,

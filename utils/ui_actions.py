@@ -1,4 +1,4 @@
-from playwright.sync_api import Page
+from playwright.sync_api import Page, Route, Request
 from utils import log
 from utils import ctx
 
@@ -26,4 +26,12 @@ class Action:
         except Exception as e:
             log.error(e)
             return False
+
+    def change_response(self, user_data: dict, url_pattern :str):
+
+        self.page.route(url_pattern,
+                        lambda route, request: route.fulfill(
+                                                status=200,
+                                                json=user_data,
+                                                content_type="application/json"))
 

@@ -15,15 +15,8 @@ def test_user_response_modify(page: Page):
                 }
             }
 
-    def handle(route: Route, request: Request):
-
-        route.fulfill(status=200,
-                      json=res,
-                      content_type="application/json")
-
-    page.route("**/api/users/2", handle)
-
     reqres = ReqRes(page=page)
+    reqres.mock_single_user(res)
 
     reqres.click_single_user()
     resp = reqres.get_resp()

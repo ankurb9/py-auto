@@ -14,6 +14,7 @@ class Context:
     password: str = field(default="", init=False)
     api_host: str = field(default="", init=False)
     project_root: str = field(default_factory=lambda: str(Path(__file__).resolve().parents[1]), init=False)
+    api_key: str = field(default="", init=False)
 
     def set_context(self, env, log_level):
         self.env = env
@@ -26,5 +27,6 @@ class Context:
             self.username = conf["username"]
             self.password = conf["password"]
             self.api_host=conf["host"]
+            self.api_key=conf["x-api-key"]
 
 ctx = Context()

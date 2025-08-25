@@ -19,8 +19,6 @@ def pytest_addoption(parser):
         help="Set the logging level (DEBUG, INFO, WARNING, etc.)"
     )
 
-    parser.addoption("--env", action="store", default="qa1", help="Provide the environment")
-
 def pytest_configure(config):
     env = config.getoption("--env")
     log_level = config.getoption("--loglevel")

@@ -7,14 +7,15 @@ from . import log
 
 
 class Service(Enum):
-    users = "users"
+    users = "api/users"
     posts = "Posts"
 
 
 class APIClient:
     DEFAULT_HEADERS = {
         "Content-Type": "application/json",
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "x-api-key": ctx.api_key
     }
 
     def __init__(self, service: Service):
@@ -38,7 +39,7 @@ class APIClient:
         self._validate_status_code(resp.status_code, status_code_expected)
         return self._extract_response(resp)
 
-    def delete(self, identifier: str|int, status_code_expected=202):
+    def delete(self, identifier: str|int, status_code_expected=200):
         resp: responses = self.session.delete(url=f"{self.url}/{identifier}")
         self._validate_status_code(resp.status_code, status_code_expected)
 
@@ -58,12 +59,10 @@ class APIClient:
 
     @staticmethod
     def _extract_response(resp: responses):
-        if resp.headers.get("Content-Type") == "application/json":
-            data = resp.json()
-
-        else:
-            data = resp.text
-
+        try:
+            data= json.loads(resp.text)
+        except:
+            data= resp.text
         log.info(f"response: {data}")
 
         return data

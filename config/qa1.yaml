@@ -2,4 +2,5 @@ url: "https://www.saucedemo.com"
 username: "standard_user"
 password: "secret_sauce"
 
-host: "https://jsonplaceholder.typicode.com"
+host: "https://reqres.in"
+x-api-key: "reqres-free-v1"

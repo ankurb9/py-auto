@@ -1,5 +1,6 @@
 import json
 from playwright.sync_api import Page
+from response_builder.user_response import UserResponse
 
 from utils import log
 
@@ -10,21 +11,9 @@ from utils import log
 
 def test_reqres_users_api(page: Page):
     """Mock ReqRes.in users API"""
+    res = UserResponse()
 
-    mock_users = {
-        "page": 1,
-        "per_page": 6,
-        "total": 12,
-        "total_pages": 2,
-        "data": [
-            {
-                "id": 1,
-                "email": "ankurb9@reqres.in",
-                "first_name": "Mock",
-                "last_name": "User"
-            }
-        ]
-    }
+    mock_users = res.response(5)
 
     page.route("**/api/users*", lambda route: route.fulfill(
         status=200,
@@ -34,4 +23,3 @@ def test_reqres_users_api(page: Page):
 
     page.goto("https://reqres.in/")
 
-    log.info("")
